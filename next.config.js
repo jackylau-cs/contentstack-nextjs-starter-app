@@ -19,7 +19,8 @@ const config = {
       process.env.CONTENTSTACK_LIVE_PREVIEW || 'true',
     CONTENTSTACK_LIVE_EDIT_TAGS:
       process.env.CONTENTSTACK_LIVE_EDIT_TAGS || 'false',
-    CONTENTSTACK_MULTISITE_PREFIX: process.env.CONTENTSTACK_MULTISITE_PREFIX,
+    CONTENTSTACK_MULTISITE_PREFIX: 
+      process.env.CONTENTSTACK_MULTISITE_PREFIX || '',
   },
 };
 module.exports =
