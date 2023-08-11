@@ -8,6 +8,11 @@ import RenderComponents from '../../components/render-components';
 import ArchiveRelative from '../../components/archive-relative';
 import { Page, BlogPosts, PageUrl } from "../../typescript/pages";
 
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+const envConfig = process.env.CONTENTSTACK_API_KEY
+  ? process.env
+  : publicRuntimeConfig;
 
 export default function BlogPost({ blogPost, page, pageUrl }: {blogPost: BlogPosts, page: Page, pageUrl: PageUrl}) {
   
@@ -34,7 +39,7 @@ export default function BlogPost({ blogPost, page, pageUrl }: {blogPost: BlogPos
         <RenderComponents
           pageComponents={banner.page_components}
           blogPost
-          contentTypeUid='blog_post'
+          contentTypeUid={`${envConfig.CONTENTSTACK_MULTISITE_PREFIX}blog_post`}
           entryUid={banner?.uid}
           locale={banner?.locale}
         />

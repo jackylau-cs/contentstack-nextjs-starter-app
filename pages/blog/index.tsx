@@ -8,6 +8,12 @@ import ArchiveRelative from '../../components/archive-relative';
 import Skeleton from 'react-loading-skeleton';
 import { Page, PostPage, PageUrl, Context } from "../../typescript/pages";
 
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+const envConfig = process.env.CONTENTSTACK_API_KEY
+  ? process.env
+  : publicRuntimeConfig;
+
 
 export default function Blog({ page, posts, archivePost, pageUrl }: {page: Page, posts: PostPage, archivePost: PostPage, pageUrl: PageUrl}) {
 
@@ -31,7 +37,7 @@ export default function Blog({ page, posts, archivePost, pageUrl }: {page: Page,
         <RenderComponents
           pageComponents={getBanner.page_components}
           blogPost
-          contentTypeUid='page'
+          contentTypeUid={`${envConfig.CONTENTSTACK_MULTISITE_PREFIX}page`}
           entryUid={getBanner.uid}
           locale={getBanner.locale}
         />

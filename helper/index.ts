@@ -13,39 +13,39 @@ const liveEdit = envConfig.CONTENTSTACK_LIVE_EDIT_TAGS === "true";
 
 export const getHeaderRes = async (): Promise<HeaderProps> => {
   const response = (await getEntry({
-    contentTypeUid: "header",
+    contentTypeUid: `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}header`,
     referenceFieldPath: ["navigation_menu.page_reference"],
     jsonRtePath: ["notification_bar.announcement_text"],
   })) as HeaderProps[][];
 
-  liveEdit && addEditableTags(response[0][0], "header", true);
+  liveEdit && addEditableTags(response[0][0], `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}header`, true);
   return response[0][0];
 };
 
 export const getFooterRes = async (): Promise<FooterProps> => {
   const response = (await getEntry({
-    contentTypeUid: "footer",
+    contentTypeUid: `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}footer`,
     referenceFieldPath: undefined,
     jsonRtePath: ["copyright"],
   })) as FooterProps[][];
-  liveEdit && addEditableTags(response[0][0], "footer", true);
+  liveEdit && addEditableTags(response[0][0], `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}footer`, true);
   return response[0][0];
 };
 
 export const getAllEntries = async (): Promise<Page[]> => {
   const response = (await getEntry({
-    contentTypeUid: "page",
+    contentTypeUid: `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}page`,
     referenceFieldPath: undefined,
     jsonRtePath: undefined,
   })) as Page[][];
   liveEdit &&
-    response[0].forEach((entry) => addEditableTags(entry, "page", true));
+    response[0].forEach((entry) => addEditableTags(entry, `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}page`, true));
   return response[0];
 };
 
 export const getPageRes = async (entryUrl: string): Promise<Page> => {
   const response = (await getEntryByUrl({
-    contentTypeUid: "page",
+    contentTypeUid: `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}page`,
     entryUrl,
     referenceFieldPath: ["page_components.from_blog.featured_blogs"],
     jsonRtePath: [
@@ -54,28 +54,28 @@ export const getPageRes = async (entryUrl: string): Promise<Page> => {
       "page_components.section_with_html_code.description",
     ],
   })) as Page[];
-  liveEdit && addEditableTags(response[0], "page", true);
+  liveEdit && addEditableTags(response[0], `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}page`, true);
   return response[0];
 };
 
 export const getBlogListRes = async (): Promise<BlogPosts[]> => {
   const response = (await getEntry({
-    contentTypeUid: "blog_post",
+    contentTypeUid: `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}blog_post`,
     referenceFieldPath: ["author", "related_post"],
     jsonRtePath: ["body"],
   })) as BlogPosts[][];
   liveEdit &&
-    response[0].forEach((entry) => addEditableTags(entry, "blog_post", true));
+    response[0].forEach((entry) => addEditableTags(entry, `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}blog_post`, true));
   return response[0];
 };
 
 export const getBlogPostRes = async (entryUrl: string): Promise<BlogPosts> => {
   const response = (await getEntryByUrl({
-    contentTypeUid: "blog_post",
+    contentTypeUid: `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}blog_post`,
     entryUrl,
     referenceFieldPath: ["author", "related_post"],
     jsonRtePath: ["body", "related_post.body"],
   })) as BlogPosts[];
-  liveEdit && addEditableTags(response[0], "blog_post", true);
+  liveEdit && addEditableTags(response[0], `${envConfig.CONTENTSTACK_MULTISITE_PREFIX}blog_post`, true);
   return response[0];
 };

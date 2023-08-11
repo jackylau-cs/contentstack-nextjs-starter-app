@@ -5,6 +5,12 @@ import { getPageRes } from '../helper';
 import Skeleton from 'react-loading-skeleton';
 import { Props, Context } from "../typescript/pages";
 
+import getConfig from "next/config";
+const { publicRuntimeConfig } = getConfig();
+const envConfig = process.env.CONTENTSTACK_API_KEY
+  ? process.env
+  : publicRuntimeConfig;
+
 export default function Home(props: Props) {
 
   const { page, entryUrl } = props;
@@ -28,7 +34,7 @@ export default function Home(props: Props) {
   return getEntry ? (
     <RenderComponents
       pageComponents={getEntry.page_components}
-      contentTypeUid='page'
+      contentTypeUid={`${envConfig.CONTENTSTACK_MULTISITE_PREFIX}page`}
       entryUid={getEntry.uid}
       locale={getEntry.locale}
     />
